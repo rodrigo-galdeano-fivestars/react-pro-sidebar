@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useIntl } from 'react-intl';
 import {
   ProSidebar,
@@ -11,100 +11,55 @@ import {
 } from 'react-pro-sidebar';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from './assets/bg2.jpg';
+import SideMenuLogo from "./assets/sideMenuLogo.svg";
+import ExternalLink from "./assets/externalLink.svg";
+import DownArrowIcon from "./assets/navMenuArrowDown.svg";
+import UpArrowIcon from "./assets/navMenuArrowUp.svg";
+
 
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
-  const intl = useIntl();
+  const [arrowIcon, setArrowIcon] = useState(<img src={DownArrowIcon}></img>);
+
+  const changeArrowIcon = (open) => {
+    const newArrowIcon = open ? (<img src={UpArrowIcon}></img>) : (<img src={DownArrowIcon}></img>);
+    setArrowIcon(newArrowIcon);
+  }
+
   return (
     <ProSidebar
-      image={image ? sidebarBg : false}
       rtl={rtl}
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
       onToggle={handleToggleSidebar}
+      collapsedWidth="0px"
     >
-      <SidebarHeader>
         <div
           style={{
-            padding: '24px',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-            fontSize: 14,
-            letterSpacing: '1px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            padding: '24px'
           }}
+
         >
-          {intl.formatMessage({ id: 'sidebarTitle' })}
+          <img src={SideMenuLogo} width="150px" height="30px"/>
         </div>
-      </SidebarHeader>
 
       <SidebarContent>
-        <Menu iconShape="circle">
-          <MenuItem
-            icon={<FaTachometerAlt />}
-            suffix={<span className="badge red">{intl.formatMessage({ id: 'new' })}</span>}
-          >
-            {intl.formatMessage({ id: 'dashboard' })}
-          </MenuItem>
-          <MenuItem icon={<FaGem />}> {intl.formatMessage({ id: 'components' })}</MenuItem>
-        </Menu>
-        <Menu iconShape="circle">
-          <SubMenu
-            suffix={<span className="badge yellow">3</span>}
-            title={intl.formatMessage({ id: 'withSuffix' })}
-            icon={<FaRegLaughWink />}
-          >
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 1</MenuItem>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 2</MenuItem>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3</MenuItem>
-          </SubMenu>
-          <SubMenu
-            prefix={<span className="badge gray">3</span>}
-            title={intl.formatMessage({ id: 'withPrefix' })}
-            icon={<FaHeart />}
-          >
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 1</MenuItem>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 2</MenuItem>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3</MenuItem>
-          </SubMenu>
-          <SubMenu title={intl.formatMessage({ id: 'multiLevel' })} icon={<FaList />}>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 1 </MenuItem>
-            <MenuItem>{intl.formatMessage({ id: 'submenu' })} 2 </MenuItem>
-            <SubMenu title={`${intl.formatMessage({ id: 'submenu' })} 3`}>
-              <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3.1 </MenuItem>
-              <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3.2 </MenuItem>
-              <SubMenu title={`${intl.formatMessage({ id: 'submenu' })} 3.3`}>
-                <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3.3.1 </MenuItem>
-                <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3.3.2 </MenuItem>
-                <MenuItem>{intl.formatMessage({ id: 'submenu' })} 3.3.3 </MenuItem>
-              </SubMenu>
+        <Menu>
+          <MenuItem icon={<FaGem />}>Overview</MenuItem>
+          <SubMenu title="Payments" icon={<FaList />} onOpenChange={changeArrowIcon} suffix={arrowIcon}>
+            <MenuItem>Transactions</MenuItem>
+            <SubMenu title="Deposits & fees">
+              <MenuItem>Daily summary</MenuItem>
+              <MenuItem>Monthly summary</MenuItem>
             </SubMenu>
           </SubMenu>
         </Menu>
+        <div className="separator-line"/>
+        <Menu>
+          <MenuItem suffix={<img src={ExternalLink} width="8px" height="8px"/>}>Account</MenuItem>
+          <MenuItem>Signout</MenuItem>
+        </Menu>
       </SidebarContent>
-
-      <SidebarFooter style={{ textAlign: 'center' }}>
-        <div
-          className="sidebar-btn-wrapper"
-          style={{
-            padding: '20px 24px',
-          }}
-        >
-          <a
-            href="https://github.com/azouaoui-med/react-pro-sidebar"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            <FaGithub />
-            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-              {intl.formatMessage({ id: 'viewSource' })}
-            </span>
-          </a>
-        </div>
-      </SidebarFooter>
     </ProSidebar>
   );
 };
