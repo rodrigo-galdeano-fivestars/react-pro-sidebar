@@ -1,20 +1,17 @@
-import React, {useState} from 'react';
-import { useIntl } from 'react-intl';
+import React, { useState } from 'react';
 import {
   ProSidebar,
   Menu,
   MenuItem,
   SubMenu,
-  SidebarHeader,
-  SidebarFooter,
   SidebarContent,
 } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-import sidebarBg from './assets/bg2.jpg';
-import SideMenuLogo from "./assets/sideMenuLogo.svg";
+import NavMenuLogo from "./assets/navMenuLogo.svg";
 import ExternalLink from "./assets/externalLink.svg";
 import DownArrowIcon from "./assets/navMenuArrowDown.svg";
 import UpArrowIcon from "./assets/navMenuArrowUp.svg";
+import PaymentsIcon from "./assets/navMenuPaymentsIcon.svg";
+import OverviewIcon from "./assets/navMenuOverviewIcon.svg";
 
 
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
@@ -34,19 +31,18 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
       onToggle={handleToggleSidebar}
       collapsedWidth="0px"
     >
-        <div
-          style={{
-            padding: '24px'
-          }}
-
-        >
-          <img src={SideMenuLogo} width="150px" height="30px"/>
-        </div>
+      <div
+        style={{
+          padding: '24px 0px 0px 20px'
+        }}
+      >
+        <img src={NavMenuLogo} width="122px" height="24px" />
+      </div>
 
       <SidebarContent>
         <Menu>
-          <MenuItem icon={<FaGem />}>Overview</MenuItem>
-          <SubMenu title="Payments" icon={<FaList />} onOpenChange={changeArrowIcon} suffix={arrowIcon}>
+          <MenuItem icon={<img src={OverviewIcon} />}>Overview</MenuItem>
+          <SubMenu title="Payments" icon={<img src={PaymentsIcon} />} onOpenChange={changeArrowIcon} suffix={arrowIcon}>
             <MenuItem>Transactions</MenuItem>
             <SubMenu title="Deposits & fees">
               <MenuItem>Daily summary</MenuItem>
@@ -54,9 +50,9 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
             </SubMenu>
           </SubMenu>
         </Menu>
-        <div className="separator-line"/>
+        <div className="separator-line" />
         <Menu>
-          <MenuItem suffix={<img src={ExternalLink} width="8px" height="8px"/>}>Account</MenuItem>
+          <MenuItem suffix={<img src={ExternalLink} width="8px" height="8px" />}>Account</MenuItem>
           <MenuItem>Signout</MenuItem>
         </Menu>
       </SidebarContent>
