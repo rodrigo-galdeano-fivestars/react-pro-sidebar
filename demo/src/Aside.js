@@ -15,10 +15,10 @@ import OverviewIcon from "./assets/navMenuOverviewIcon.svg";
 
 
 const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
-  const [arrowIcon, setArrowIcon] = useState(<img src={DownArrowIcon}></img>);
+  const [arrowIcon, setArrowIcon] = useState(DownArrowIcon);
 
   const changeArrowIcon = (open) => {
-    const newArrowIcon = open ? (<img src={UpArrowIcon}></img>) : (<img src={DownArrowIcon}></img>);
+    const newArrowIcon = open ? UpArrowIcon : DownArrowIcon;
     setArrowIcon(newArrowIcon);
   }
 
@@ -42,7 +42,7 @@ const Aside = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
       <SidebarContent>
         <Menu>
           <MenuItem icon={<img src={OverviewIcon} />}>Overview</MenuItem>
-          <SubMenu title="Payments" icon={<img src={PaymentsIcon} />} onOpenChange={changeArrowIcon} suffix={arrowIcon}>
+          <SubMenu title="Payments" icon={<img src={PaymentsIcon} />} onOpenChange={changeArrowIcon} suffix={<img src={arrowIcon}></img>}>
             <MenuItem>Transactions</MenuItem>
             <SubMenu title="Deposits & fees">
               <MenuItem>Daily summary</MenuItem>
